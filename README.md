@@ -11,4 +11,4 @@ These are required to run the JS node.
 - npm install --save opusscript
 - npm install --save prism-media
 - npm install --save ffmpeg-static
-- npm install --save yt-search
+- npm install --save yt-search 
