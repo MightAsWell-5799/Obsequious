@@ -1,0 +1,62 @@
+{
+    "generalInfo":"This is standard JSON. if you know it im using arrays and basic elements. otherwise, googling it might help you a little bit. Extra line breaks don't matter.",
+    "dimsInfo":"width then height in brakets separated by a comma",
+    "dims":[40, 25],
+    "colourInfo":"MAX OF 256 COLOURS. Name a colour in the double quotes, follow with a colon and then another set of double quotes with the colour's hex in it, finish the line with a comma",
+    "colourSuggestion":"I reccomend making all of the colour names the same length to allow for a better grid",
+    "colours":{
+
+        "TLeaf":"008000",
+        "trunk":"654321",
+        "grass":"4caf50",
+        "dirts":"3e2723",
+        
+        "RBRed":"d11141",
+        "RBOra":"f37735",
+        "RBYel":"ffc425",
+        "RBGre":"7bc043",
+        "RBBlu":"00aedb",
+        "RBPur":"9c27b0",
+
+        "SBlue":"81d4fa",
+        "cloud":"ffffff"},
+
+        "drawingInfo":"make a grid out of your colours as follows I have below. Place a colour name into each of the double quotes. The following grid will produce a dims [5,3] image",
+        
+        "drawingFormat":[
+            "","","","","",
+            "","","","","",
+            "","","","",""
+        ],
+
+        
+
+    "drawing":[
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBRed","RBRed","RBOra","RBOra","RBOra","RBOra","RBOra","RBOra","RBOra","RBOra","RBOra","RBOra",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBRed","RBRed","RBOra","RBOra","RBOra","RBOra","RBYel","RBYel","RBYel","RBYel","RBYel","RBYel","RBYel","RBYel","RBYel",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBRed","RBOra","RBOra","RBOra","RBOra","RBYel","RBYel","RBYel","RBYel","RBGre","RBGre","RBGre","RBGre","RBGre","RBGre","RBGre","RBGre",
+        "SBlue","SBlue","SBlue","cloud","cloud","cloud","cloud","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBRed","RBOra","RBOra","RBOra","RBYel","RBYel","RBYel","RBYel","RBGre","RBGre","RBGre","RBGre","RBBlu","RBBlu","RBBlu","RBBlu","RBBlu","RBBlu","RBBlu",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBOra","RBOra","RBOra","RBYel","RBYel","RBYel","RBGre","RBGre","RBGre","RBGre","RBBlu","RBBlu","RBBlu","RBBlu","RBPur","RBPur","RBPur","RBPur","RBPur","RBPur",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBRed","RBOra","RBOra","RBYel","RBYel","RBYel","RBGre","RBGre","RBGre","RBBlu","RBBlu","RBBlu","RBBlu","RBPur","RBPur","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud","cloud","cloud","cloud","SBlue","SBlue","SBlue","RBRed","RBRed","RBOra","RBOra","RBOra","RBYel","RBYel","RBGre","RBGre","RBBlu","RBBlu","RBBlu","RBBlu","RBPur","RBPur","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBOra","RBOra","RBYel","RBYel","RBYel","RBGre","RBGre","RBBlu","RBBlu","RBPur","RBPur","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBOra","RBOra","RBYel","RBYel","RBGre","RBGre","RBGre","RBBlu","RBBlu","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud","cloud",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBOra","RBYel","RBYel","RBGre","RBGre","RBBlu","RBBlu","RBBlu","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","cloud","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBOra","RBOra","RBYel","RBGre","RBGre","RBBlu","RBBlu","RBPur","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","TLeaf","TLeaf","TLeaf","TLeaf","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "SBlue","cloud","cloud","cloud","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBOra","RBOra","RBYel","RBYel","RBGre","RBBlu","RBBlu","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","SBlue","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBOra","RBYel","RBYel","RBGre","RBGre","RBBlu","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","SBlue","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBOra","RBOra","RBYel","RBGre","RBGre","RBBlu","RBBlu","RBPur","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","cloud","cloud","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","TLeaf","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBOra","RBYel","RBYel","RBGre","RBBlu","RBBlu","RBPur","RBPur","cloud","cloud","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","TLeaf","TLeaf","TLeaf","trunk","trunk","TLeaf","TLeaf","TLeaf","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBRed","RBOra","RBYel","RBGre","RBGre","RBBlu","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","TLeaf","TLeaf","trunk","trunk","TLeaf","TLeaf","SBlue","SBlue","SBlue","SBlue",
+        "SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBOra","RBOra","RBYel","RBGre","RBBlu","RBBlu","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","trunk","trunk","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "grass","grass","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","RBRed","RBOra","RBYel","RBYel","RBGre","RBBlu","RBPur","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","trunk","trunk","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "grass","grass","grass","grass","grass","grass","grass","SBlue","SBlue","SBlue","RBRed","RBOra","RBYel","RBGre","RBGre","RBBlu","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","trunk","trunk","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "dirts","dirts","dirts","dirts","dirts","grass","grass","grass","grass","grass","grass","grass","grass","RBGre","RBBlu","RBBlu","RBPur","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","trunk","trunk","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","SBlue","trunk","trunk","trunk","trunk","SBlue","SBlue","SBlue","SBlue","SBlue",
+        "dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","trunk","trunk","grass","grass","grass","trunk","grass","grass","grass","grass",
+        "dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","trunk","dirts","dirts","dirts","trunk","dirts","dirts","dirts","dirts",
+        "dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","trunk","dirts","dirts","dirts","dirts","dirts","dirts","dirts",
+        "dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts","dirts"
+    ]
+
+}
