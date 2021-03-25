@@ -1,0 +1,27 @@
+{
+	"name": "tsbot",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"start": "ts-node index.ts",
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/request": "^2.48.5",
+		"nodemon": "^2.0.7",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.2.3"
+	},
+	"dependencies": {
+		"discord.js": "^12.5.1",
+		"image-data-uri": "^2.0.1",
+		"pnglib-es6": "^1.0.1",
+		"quickchart-js": "^1.0.6",
+		"request": "^2.88.2"
+	}
+}
