@@ -13,7 +13,7 @@ const makeLineChart = require('./makeLineChart')
 const fs = require('fs')
 const colours = ["08415c","cc2936","4da167","d58936","f6f930","e86a92", "016fb9", "d1d646", "390040", "1d3461", "35a7ff", "f5f1ed", "cc4bc2", "bf4e30"];
 
-client.login(keys.btoken)
+client.login(keys.token)
 client
     .on('ready', () => {
         console.log('ready')
@@ -196,7 +196,7 @@ client.on('message', async (message) => {
         message.react('👍')
         message.react('👎')
     }
-    if (!message.content.startsWith(keys.bprefix)) {
+    if (!message.content.startsWith(keys.prefix)) {
         return
     }
 

@@ -101,13 +101,6 @@ return;
 				process.exit();
 			}
 			break;
-		case "pf":
-			if (Math.random() > 0.9) {
-				message.channel.send("You win!");
-			} else {
-				message.channel.send(selectRandomArray(shotRoasts));
-			}
-			break;
 		case "flex":
 			message.channel.send("This bot probably has a better physics grade than you do.");
 			break;
@@ -194,7 +187,7 @@ return;
 			}
 
 			var toSend = new Discord.MessageEmbed();
-			toSend.setTitle(selectRandomArray(pfpRoasts));
+			toSend.setTitle(useName);
 
 			toSend.setImage(`${usePFP}?size=512`);
 			toSend.setColor(0xdcebff);

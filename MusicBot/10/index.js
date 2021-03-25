@@ -4,7 +4,7 @@ const client = new Discord.Client()
 const mongoose = require('mongoose')
 const User = require('./user')
 const tinyColor = require('tinycolor2')
-client.login(keys.btoken)
+client.login(keys.token)
 client.on('ready', () => console.log('ready'))
 
 mongoose.connect('mongodb://localhost:27017/serino', {
@@ -15,7 +15,7 @@ client.on('message', async (message) => {
     if (message.author.bot) {
         return
     }
-    if (!message.content.startsWith(keys.bprefix)) {
+    if (!message.content.startsWith(keys.prefix)) {
         return
     }
     if (!(message.guild.id === '668648487185022977')) {
