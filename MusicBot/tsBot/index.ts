@@ -3,7 +3,7 @@ import { prefix, token } from "./auth.json";
 import type { MessageEmbed } from "discord.js";
 
 const client = new Discord.Client();
-
+ 
 import * as vectorMath from "./physics/vector";
 import * as makettgline from "./physics/makettgline";
 import * as makePolarLine from "./physics/makePolarLine";
