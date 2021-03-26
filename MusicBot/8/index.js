@@ -1,4 +1,4 @@
-const keys = require('./../../auth.json')
+const keys = require("./auth.json");
 
 const Discord = require('discord.js')
 const png = require('pnglib-es6').default
