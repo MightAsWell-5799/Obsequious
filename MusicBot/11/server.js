@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
-var User = mongoose.Schema({
+var Server = mongoose.Schema({
     ID: {
         type: String,
         required: true,
     },
-    role: {
+    Group: {
         type: String,
         required: true,
     },
-    channel: {
-        type: String,
+    Enabled: {
+        type: Boolean,
         required: true,
     },
 })
-module.exports = mongoose.model('colourUser', User)
+module.exports = mongoose.model('houseServer', Server)
