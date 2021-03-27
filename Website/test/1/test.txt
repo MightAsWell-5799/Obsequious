@@ -1,0 +1,8 @@
+#009cdc
+#0078a9
+#005172
+#0081b6
+
+
+info light bg color
+#b8e3f5
