@@ -1,0 +1,7 @@
+*/node_modules/*
+**/node_modules/**
+*/colours/*
+**/auth.**
+images/*
+auth.json
+*.png
