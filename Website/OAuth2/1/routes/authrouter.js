@@ -1,26 +1,35 @@
 const uuid = require('uuid')
 const http = require('http')
-const express = require('express')
 const fs = require('fs')
 
+const express = require('express')
 const router = express.Router()
 
+const passport = require('passport')
+const passportSetup = require('./../configs/passportS')
+var scopes = ['identify', 'guilds']
+
 //?login page
-router.get('/login', (req, res)=>{
+router.get('/login', (req, res) => {
     res.render('auth/login')
 })
 
 //logout
-router.get('/logout', (req, res)=>{
+router.get('/logout', (req, res) => {
     //passport
-    res.send("logged out")
+    res.send('logged out')
 })
 
-
 //! auth with discord
-router.get('/discord', (req, res)=>{
-    //passport
-    res.send("discord login")
+router.get('/discord', passport.authenticate('discord', { scope: scopes }))
+
+router.get('/discord/redirect', passport.authenticate("discord"), (req, res) => {
+    //token
+    console.log(req.query.code)
+    
+
+
+    res.send("OJFBAIKJWBFKAJBF")
 })
 
 module.exports = router

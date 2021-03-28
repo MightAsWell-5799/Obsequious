@@ -14,7 +14,9 @@ app.use("/auth", authRouter)
 
 
 app.get('/', (req, res) => {
+    console.log(req.query)
     res.render('main/home', {})
+
 })
 app.get('/commands', (req, res) => {
     res.render('main/commands', {})
