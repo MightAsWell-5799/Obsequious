@@ -1,0 +1,12 @@
+colour classes:
+ - blue:
+   - info
+   - infof
+ - red:
+   - danger
+   - dangerf
+ - purple:
+   - primary
+   - primaryf
+
+
