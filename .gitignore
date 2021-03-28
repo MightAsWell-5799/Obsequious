@@ -5,3 +5,4 @@
 images/*
 auth.json
 *.png
+**/scss/**
