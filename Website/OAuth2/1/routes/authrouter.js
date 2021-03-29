@@ -23,13 +23,16 @@ router.get('/logout', (req, res) => {
 //! auth with discord
 router.get('/discord', passport.authenticate('discord', { scope: scopes }))
 
-router.get('/discord/redirect', passport.authenticate("discord"), (req, res) => {
-    //token
-    console.log(req.query.code)
-    
+router.get(
+    '/discord/redirect',
+    passport.authenticate('discord'),
+    (req, res) => {
+        //token
 
+        console.log(req.query.code)
 
-    res.send("OJFBAIKJWBFKAJBF")
-})
+        res.send('OJFBAIKJWBFKAJBF')
+    },
+)
 
 module.exports = router

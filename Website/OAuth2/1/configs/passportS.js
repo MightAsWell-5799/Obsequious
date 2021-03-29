@@ -1,20 +1,22 @@
 const passport = require('passport')
+var DiscordStrategy = require('passport-discord').Strategy
 const OAuth2Strategy = require('passport-oauth2')
 const webAuth = require('../private/webAuth.json')
-const https = require('https')
+
+var scopes = ['identify', 'email', 'guilds'];
 
 passport.use(
     'discord',
-    new OAuth2Strategy(
+    new DiscordStrategy(
         {
-            authorizationURL: 'https://discord.com/api/oauth2/authorize	',
-            tokenURL: 'https://discord.com/api/oauth2/token',
             clientID: webAuth.clientID,
             clientSecret: webAuth.clientSecret,
             callbackURL: 'http://obsequi.xyz/auth/discord/redirect',
+            scope: scopes,
         },
-        (AccessToken, refreshToken, profile, done) => {
-            
+        (accessToken, refreshToken, profile, cb) => {
+            console.log(profile)
         },
     ),
 )
+
