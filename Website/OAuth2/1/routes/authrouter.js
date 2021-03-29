@@ -1,12 +1,12 @@
-const uuid = require('uuid')
-const http = require('http')
-const fs = require('fs')
 
 const express = require('express')
 const router = express.Router()
 
 const passport = require('passport')
 const passportSetup = require('./../configs/passportS')
+const webAuth = require('../private/webAuth.json')
+
+
 var scopes = ['identify', 'guilds']
 
 //?login page
