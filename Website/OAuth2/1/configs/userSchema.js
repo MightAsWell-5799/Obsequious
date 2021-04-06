@@ -6,14 +6,14 @@ var UserSchema = new schema({
         type: String,
         required: true,
     },
-    DisplayName: {
+    name: {
         type: String,
         required: true,
     },
-    Avatar: {
+    avatar: {
         type: String,
         required: true,
-    }
+    },
 })
 
 module.exports = mongoose.model('User', UserSchema)
