@@ -1,4 +1,4 @@
-const keys = require("./auth.json");
+const keys = require('./auth.json')
 
 const Discord = require('discord.js')
 const png = require('pnglib-es6').default
@@ -11,7 +11,22 @@ const makePolarLine = require('./makePolarLine')
 const makeLineChart = require('./makeLineChart')
 
 const fs = require('fs')
-const colours = ["08415c","cc2936","4da167","d58936","f6f930","e86a92", "016fb9", "d1d646", "390040", "1d3461", "35a7ff", "f5f1ed", "cc4bc2", "bf4e30"];
+const colours = [
+    '08415c',
+    'cc2936',
+    '4da167',
+    'd58936',
+    'f6f930',
+    'e86a92',
+    '016fb9',
+    'd1d646',
+    '390040',
+    '1d3461',
+    '35a7ff',
+    'f5f1ed',
+    'cc4bc2',
+    'bf4e30',
+]
 
 client.login(keys.token)
 client
@@ -184,10 +199,12 @@ client.on('message', async (message) => {
     //console.log(calcPolarDistance(['0', '10', '-8', -9]))
     //if(message.content.replace(" ", "").search("simp") >= 0){message.member.setNickname("simp")}
     //if(message.content.replace(" ", "").search("simp") >= 0){message.member.setNickname("simp")}
-    if (message.guild.id.toString() == "757052713489006652") {
-		try{message.member.setNickname(message.content.substring(0,30))
-        console.log(message.content.substring(0,30))}catch(e){}
-	}
+    if (message.guild.id.toString() == '757052713489006652') {
+        try {
+            message.member.setNickname(message.content.substring(0, 30))
+            console.log(message.content.substring(0, 30))
+        } catch (e) {}
+    }
 
     if (message.author.bot) {
         return
@@ -233,7 +250,7 @@ return;
             break
         case 'custom':
             message.channel.send(await createImage(20, sebFile.drawing, message.id, sebFile.dims, serinFile.name))
-            break 
+            break
         case 'cc':
             args.shift()
             if (args[0] == 'dims') {
