@@ -3,7 +3,8 @@
 
 
 ### NPM INSTALL LIBRARIES
-
-These are required to run the JS node.
+run 
+`npm install` 
+in any of the project directories
 
 
