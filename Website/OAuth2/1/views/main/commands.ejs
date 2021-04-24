@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--commands page-->
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -11,6 +12,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+            <!--navbar, commands tab active-->
             <a class="navbar-brand" href="/">Obsequi</a
             ><button
                 class="navbar-toggler"
@@ -29,11 +31,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/"
                             >Home
-                            <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="/about">About</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/commands">Commands</a>
@@ -43,5 +44,7 @@
                 </ul>
             </div>
         </nav>
+        <%- include('./../bits/__discordlogin.ejs') -%>
+        
     </body>
 </html>

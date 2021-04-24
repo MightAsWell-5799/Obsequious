@@ -9,12 +9,8 @@ const webAuth = require('../private/webAuth.json')
 
 var scopes = ['identify', 'guilds']
 
-//?login page
-router.get('/login', (req, res) => {
-    res.render('auth/login')
-})
 
-//logout
+//logout might not need
 router.get('/logout', (req, res) => {
     //passport
     res.send('logged out')
