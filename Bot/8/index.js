@@ -197,15 +197,7 @@ const sebFile = require('./drawings/rainbowandsky.json')
 const serinFile = require('./drawings/serin.json')
 
 client.on('message', async (message) => {
-    //console.log(calcPolarDistance(['0', '10', '-8', -9]))
-    //if(message.content.replace(" ", "").search("simp") >= 0){message.member.setNickname("simp")}
-    //if(message.content.replace(" ", "").search("simp") >= 0){message.member.setNickname("simp")}
-    if (message.guild.id.toString() == '757052713489006652') {
-        try {
-            message.member.setNickname(message.content.substring(0, 30))
-            console.log(message.content.substring(0, 30))
-        } catch (e) {}
-    }
+
 
     if (message.author.bot) {
         return
