@@ -1,19 +1,21 @@
 const mongoose = require('mongoose')
-const schema = mongoose.Schema
-
-var UserSchema = new schema({
+var User = mongoose.Schema({
     ID: {
         type: String,
         required: true,
+        
     },
     name: {
         type: String,
         required: true,
     },
-    avatar: {
+    avatarURL: {
         type: String,
         required: true,
     },
+    list: {
+        type: Array,
+        required: true,
+    }
 })
-
-module.exports = mongoose.model('webUsers', UserSchema)
+module.exports = mongoose.model('listUser', User)

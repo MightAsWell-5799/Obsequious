@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",
+    "eevee-discord": "^1.1.2",
+    "jimp": "^0.16.1",
     "mongoose": "^5.12.5",
     "tinycolor2": "^1.4.2"
   }

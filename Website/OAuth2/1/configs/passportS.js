@@ -16,12 +16,14 @@ passport.use(
             clientID: webAuth.clientID,
             clientSecret: webAuth.clientSecret,
             //page that is rendered after authentication
-            callbackURL: 'http://localhost/auth/discord/redirect',
+            callbackURL: 'http://obsequi.xyz/auth/discord/redirect',
             //scopes defined above
             scope: scopes,
         },
         async (accessToken, refreshToken, profile, cb) => {
             //save user with the mongoose User Object form
+
+                
             var user = new User({
                 ID: profile.id,
                 name: profile.username,
