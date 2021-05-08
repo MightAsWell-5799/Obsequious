@@ -169,27 +169,28 @@ async function sortPairs(pairsIn) {
 }
 async function defineHelps() {
     var thisarraything = (await client.guilds.fetch('757052713489006652')).emojis.cache
-    var potat = thisarraything.keyArray()
-    var lego = new Map()
-    potat.forEach((Element) => lego.set(thisarraything.get(Element).name, thisarraything.get(Element).id))
+    var spaceEmoteArray = thisarraything.keyArray()
+    var emoteMap = new Map()
+    spaceEmoteArray.forEach((Element) => emoteMap.set(thisarraything.get(Element).name, thisarraything.get(Element).id))
     emoteHelp
         .setTitle('Emotes')
         .setColor(0xdcebff)
-        .addField((name = 'Joy'), (value = `<:ObsequiJoy:${lego.get('ObsequiJoy')}>`), (inline = true))
-        .addField((name = 'Derp'), (value = `<:Derp:${lego.get('ObsequiDerp')}>`), (inline = true))
-        .addField((name = 'Lenny'), (value = `<:ObsequiLenny:${lego.get('ObsequiLenny')}>`), (inline = true))
+        .addField((name = 'Joy'), (value = `<:ObsequiJoy:${emoteMap.get('ObsequiJoy')}>`), (inline = true))
+        .addField((name = 'Derp'), (value = `<:Derp:${emoteMap.get('ObsequiDerp')}>`), (inline = true))
+        .addField((name = 'Lenny'), (value = `<:ObsequiLenny:${emoteMap.get('ObsequiLenny')}>`), (inline = true))
         .addField(
             (name = 'Concerned'),
-            (value = `<:ObsequiConcerned:${lego.get('ObsequiConcerned')}>`),
+            (value = `<:ObsequiConcerned:${emoteMap.get('ObsequiConcerned')}>`),
             (inline = true),
         )
-        .addField((name = 'Loopy'), (value = `<:ObsequiLoopy:${lego.get('ObsequiLoopy')}>`), (inline = true))
-        .addField((name = 'Yell'), (value = `<:ObsequiYell:${lego.get('ObsequiYell')}>`), (inline = true))
-        .addField((name = 'Sad'), (value = `<:ObsequiSad:${lego.get('ObsequiSad')}>`), (inline = true))
-        .addField((name = 'Wicked'), (value = `<:ObsequiWicked:${lego.get('ObsequiWicked')}>`), (inline = true))
-        .addField((name = 'Soulless'), (value = `<:ObsequiSoulless:${lego.get('ObsequiSoulless')}>`), (inline = true))
+        .addField((name = 'Loopy'), (value = `<:ObsequiLoopy:${emoteMap.get('ObsequiLoopy')}>`), (inline = true))
+        .addField((name = 'Yell'), (value = `<:ObsequiYell:${emoteMap.get('ObsequiYell')}>`), (inline = true))
+        .addField((name = 'Sad'), (value = `<:ObsequiSad:${emoteMap.get('ObsequiSad')}>`), (inline = true))
+        .addField((name = 'Wicked'), (value = `<:ObsequiWicked:${emoteMap.get('ObsequiWicked')}>`), (inline = true))
+        .addField((name = 'Soulless'), (value = `<:ObsequiSoulless:${emoteMap.get('ObsequiSoulless')}>`), (inline = true))
 }
 defineHelps()
+
 
 const remiFile = require('./drawings/remi.json')
 const sebFile = require('./drawings/rainbowandsky.json')
