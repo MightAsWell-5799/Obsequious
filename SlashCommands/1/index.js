@@ -1,3 +1,10 @@
+//!This is literally a potato for a slash commands thingie
+//?I understand how to use them, but i found a better implementation for them
+//?It'll be released soon enough, so imma wait
+//?I'll work on the commands with normal obsequi for the time being
+//!SCREAAAAAAAAAAAAAAAAAAAAAM
+
+
 const Discord = require('discord.js')
 const mongoose = require('mongoose')
 const tinycolor2 = require('tinycolor2')
