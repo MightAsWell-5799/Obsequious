@@ -55,60 +55,87 @@ client.on('message', async (message) => {
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 break
             }
+            switch (args[1]) {
+                case 'house':
+                    if (await Server.findOne({ ID: message.guild.id })) {
+                        await Server.findOneAndUpdate(
+                            { ID: message.guild.id },
+                            { Enabled: true },
+                        )
+                        message.channel.send(
+                            'Enabled the house module for this server.',
+                        )
+                    } else {
+                        if (!args[2]) {
+                            message.channel.send(
+                                'Send the ID for the house collection on this server with the command',
+                            )
+                            break
+                        }
 
-            if (await Server.findOne({ ID: message.guild.id })) {
-                await Server.findOneAndUpdate(
-                    { ID: message.guild.id },
-                    { Enabled: true },
-                )
-                message.channel.send(
-                    'Enabled the house module for this server.',
-                )
-            } else {
-                if (!args[1]) {
-                    message.channel.send(
-                        'Send the ID for the house collection on this server with the command',
-                    )
-                    break;
-                }
-                var server = new Server({
-                    ID: message.guild.id,
-                    Group: args[1],
-                    Enabled: true,
-                })
-                var current = await server.save()
-                message.channel.send(
-                    'Made and enabled the house module for this server.',
-                )
+                        var server = new Server({
+                            ID: message.guild.id,
+                            Group: args[2],
+                            Enabled: true,
+                            Rooms: false,
+                        })
+                        var current = await server.save()
+                        message.channel.send(
+                            'Made and enabled the house module for this server.',
+                        )
+                    }
+                    break
+                case 'rooms':
+                    if (await Server.findOne({ ID: message.guild.id })) {
+                        await Server.findOneAndUpdate(
+                            { ID: message.guild.id },
+                            { Rooms: true },
+                        )
+                        message.channel.send(
+                            'Enabled the rooms for this server.',
+                        )
+                    }
+                    break
             }
 
             break
         case 'disable':
-            if (!message.member.hasPermission('ADMINISTRATOR')) {
-                break
+            switch (args[1]) {
+                case 'house':
+                    if (!message.member.hasPermission('ADMINISTRATOR')) {
+                        break
+                    }
+                    if (await Server.findOne({ ID: message.guild.id })) {
+                        await Server.findOneAndUpdate(
+                            { ID: message.guild.id },
+                            { Enabled: false },
+                        )
+                        message.channel.send(
+                            'Disabled the house module for this server.',
+                        )
+                    } else {
+                        message.channel.send(
+                            'This server does not have the house module yet.',
+                        )
+                    }
+                    break
+                case 'rooms':
+                    if (await Server.findOne({ ID: message.guild.id })) {
+                        await Server.findOneAndUpdate(
+                            { ID: message.guild.id },
+                            { Rooms: false },
+                        )
+                        message.channel.send('Disabled rooms for this server.')
+                    }
+                    break
             }
-            if (await Server.findOne({ ID: message.guild.id })) {
-                await Server.findOneAndUpdate(
-                    { ID: message.guild.id },
-                    { Enabled: false },
-                )
-                message.channel.send(
-                    'Disabled the house module for this server.',
-                )
-            } else {
-                message.channel.send(
-                    'This server does not have the house module yet.',
-                )
-            }
-
             break
-
         case 'join':
             try {
                 if (mongoServer.Enabled) {
                 } else {
                     message.channel.send(
-                        "The house module is disabled for this server."
+                        'The house module is disabled for this server.',
                     )
                     return
                 }
@@ -130,21 +157,24 @@ client.on('message', async (message) => {
                     },
                     reason: "created a user's  role",
                 })
-                
-                channel = await message.guild.channels.create(
-                    `${message.author.username}'s room`,
-                    {
-                        type: 'voice',
-                        parent: parent,
-                        permissionOverwrites: [
-                            {
-                                id: message.guild.roles.everyone,
-                                deny: ['CONNECT'],
-                            },
-                            { id: message.author.id, allow: ['CONNECT'] },
-                        ],
-                    },
-                )
+                if (mongoServer.Rooms) {
+                    channel = await message.guild.channels.create(
+                        `${message.author.username}'s room`,
+                        {
+                            type: 'voice',
+                            parent: parent,
+                            permissionOverwrites: [
+                                {
+                                    id: message.guild.roles.everyone,
+                                    deny: ['CONNECT'],
+                                },
+                                { id: message.author.id, allow: ['CONNECT'] },
+                            ],
+                        },
+                    )
+                } else {
+                    channel = { id: 'null' }
+                }
                 var user = new User({
                     ID: message.author.id,
                     Server: serverID,
@@ -172,7 +202,7 @@ client.on('message', async (message) => {
                 if (mongoServer.Enabled) {
                 } else {
                     message.channel.send(
-                        "The house module is disabled for this server."
+                        'The house module is disabled for this server.',
                     )
                     return
                 }
@@ -207,7 +237,7 @@ client.on('message', async (message) => {
                 if (mongoServer.Enabled) {
                 } else {
                     message.channel.send(
-                        "The house module is disabled for this server."
+                        'The house module is disabled for this server.',
                     )
                     return
                 }
@@ -242,10 +272,10 @@ client.on('message', async (message) => {
         case 'channelname':
         case 'cn':
             try {
-                if (mongoServer.Enabled) {
+                if (mongoServer.Enabled && mongoServer.Rooms) {
                 } else {
                     message.channel.send(
-                        "The house module is disabled for this server."
+                        'The house module is disabled for this server.',
                     )
                     return
                 }
@@ -282,10 +312,10 @@ client.on('message', async (message) => {
             break
         case 'lock':
             try {
-                if (mongoServer.Enabled) {
+                if (mongoServer.Enabled && mongoServer.Rooms) {
                 } else {
                     message.channel.send(
-                        "The house module is disabled for this server."
+                        'The house module is disabled for this server.',
                     )
                     return
                 }
@@ -332,10 +362,10 @@ client.on('message', async (message) => {
             break
         case 'unlock':
             try {
-                if (mongoServer.Enabled) {
+                if (mongoServer.Enabled && mongoServer.Rooms) {
                 } else {
                     message.channel.send(
-                        "The house module is disabled for this server."
+                        'The house module is disabled for this server.',
                     )
                     return
                 }
@@ -383,10 +413,10 @@ client.on('message', async (message) => {
             break
         case 'reload':
             try {
-                if (mongoServer.Enabled) {
+                if (mongoServer.Rooms) {
                 } else {
                     message.channel.send(
-                        "The house module is disabled for this server."
+                        'The rooms module is disabled for this server.',
                     )
                     return
                 }
@@ -398,19 +428,30 @@ client.on('message', async (message) => {
                 ID: message.author.id,
                 Server: serverID,
             })
-            if (!current) {
-                message.channel.send(
-                    "You don't seem to have a channel at the moment, try running **join** first.",
+            console.log(current)
+            if (current.channel == 'null') {
+                var channel = await message.guild.channels.create(
+                    `${message.author.username}'s room`,
+                    {
+                        type: 'voice',
+                        parent: parent,
+                        permissionOverwrites: [
+                            {
+                                id: message.guild.roles.everyone,
+                                deny: ['CONNECT'],
+                            },
+                            { id: message.author.id, allow: ['CONNECT'] },
+                        ],
+                    },
                 )
+                await User.findOneAndUpdate(
+                    { ID: message.author.id },
+                    { channel: channel.id },
+                )
+                message.channel.send('created your channel')
                 break
             }
-            var channel = await message.guild.channels.cache.get(
-                current.channel,
-            )
-            channel.overwritePermissions([
-                { id: message.guild.roles.everyone, deny: ['CONNECT'] },
-                { id: message.author.id, allow: ['CONNECT'] },
-            ])
+
             break
         default:
             console.log('not a command')
