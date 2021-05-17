@@ -33,7 +33,6 @@ app.use('/auth', authRouter)
 app.use('/commands', commandsRouter)
 
 
-
 //renders home page
 app.get('/', (req, res) => {
     //console.log(req.query)
