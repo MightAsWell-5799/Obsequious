@@ -102,10 +102,10 @@ function boardGenerator(game) {
     })
     return boardString
 }
-function boardDraw(game){ 
+function boardDraw(game) {
     state = true
-    game.board.forEach((element)=>{
-        if (element == 0){
+    game.board.forEach((element) => {
+        if (element == 0) {
             state = false
         }
     })
@@ -166,19 +166,11 @@ client.on('message', async (message) => {
                 break
             }
             if (cMap.has(message.mentions.members.first().id)) {
-                message.channel.send(
-                    `${
-                        message.mentions.members.first().user.username
-                    } is already in a game.`,
-                )
+                message.channel.send(`${message.mentions.members.first().user.username} is already in a game.`)
                 break
             }
             message.channel.send(
-                `${
-                    message.mentions.members.first().user.username
-                } has been challenged by ${
-                    message.author.username
-                }. \n\nDo you accept? (y/n)`,
+                `${message.mentions.members.first().user.username} has been challenged by ${message.author.username}. \n\nDo you accept? (y/n)`,
             )
             //challenge(message.mentions.members.first().user.id)
             await message.channel
@@ -188,11 +180,7 @@ client.on('message', async (message) => {
                     errors: ['time'],
                 })
                 .catch(() => {
-                    message.channel.send(
-                        `${
-                            message.mentions.members.first().user.username
-                        } has ignored your challenge.`,
-                    )
+                    message.channel.send(`${message.mentions.members.first().user.username} has ignored your challenge.`)
                 })
                 .then((newM) => {
                     switch (newM.first().content.toLowerCase()) {
@@ -201,18 +189,10 @@ client.on('message', async (message) => {
                         case 'si':
                         case 'ye':
                         case 'yee':
-                            message.channel.send(
-                                `${
-                                    message.mentions.members.first().user
-                                        .username
-                                } has accepted your challenge. It is now your turn.`,
-                            )
+                            message.channel.send(`${message.mentions.members.first().user.username} has accepted your challenge. It is now your turn.`)
                             cMap.set(message.author.id, new newGame())
 
-                            cMap.set(
-                                message.mentions.members.first().id,
-                                cMap.get(message.author.id),
-                            )
+                            cMap.set(message.mentions.members.first().id, cMap.get(message.author.id))
 
                             let current = cMap.get(message.author.id)
                             current.O = message.author.id
@@ -220,12 +200,7 @@ client.on('message', async (message) => {
 
                             break
                         default:
-                            message.channel.send(
-                                `${
-                                    message.mentions.members.first().user
-                                        .username
-                                } has denied your challenge`,
-                            )
+                            message.channel.send(`${message.mentions.members.first().user.username} has denied your challenge`)
                     }
                 })
             break
@@ -236,34 +211,25 @@ client.on('message', async (message) => {
             }
             var playGame = cMap.get(message.author.id)
 
-            if (
-                !(
-                    (message.author.id == playGame.O &&
-                        turnOf(playGame) == 'O') ||
-                    (
-                        message.author.id == playGame.X &&
-                        turnOf(playGame) == 'X'
-                    )
-                )
-            ) {
+            if (!((message.author.id == playGame.O && turnOf(playGame) == 'O') || (message.author.id == playGame.X && turnOf(playGame) == 'X'))) {
                 message.channel.send("It's not your turn.")
                 break
             }
-            var vertical = ["M", "B", "T"]
-            var horizontal = ["M", "R", "L"]
-            if(!vertical.includes(args[1])){
-                message.channel.send(args[1] + " is not a valid move, please try [" + vertical + "].")
+            var vertical = ['M', 'B', 'T']
+            var horizontal = ['M', 'R', 'L']
+            if (!vertical.includes(args[1])) {
+                message.channel.send(args[1] + ' is not a valid move, please try [' + vertical + '].')
                 break
             }
-            if(!horizontal.includes(args[2])){
-                message.channel.send(args[2] + " is not a valid move, please try [" + horizontal + "].")
+            if (!horizontal.includes(args[2])) {
+                message.channel.send(args[2] + ' is not a valid move, please try [' + horizontal + '].')
                 break
             }
             let move = indexFinder(args)
 
             //console.log(playGame.board[move])
-            if(playGame.board[move] > 0){
-                message.channel.send("This space has already been played.")
+            if (playGame.board[move] > 0) {
+                message.channel.send('This space has already been played.')
                 break
             }
             if (message.author.id == playGame.O) {
@@ -281,14 +247,16 @@ client.on('message', async (message) => {
                 var X = playGame.X
                 cMap.delete(X)
                 cMap.delete(O)
+                break
             }
-            
-            if(boardDraw(playGame)){
-                message.channel.send("Draw!")
+
+            if (boardDraw(playGame)) {
+                message.channel.send('Draw!')
                 var O = playGame.O
                 var X = playGame.X
                 cMap.delete(X)
                 cMap.delete(O)
+                break
             }
             break
     }
