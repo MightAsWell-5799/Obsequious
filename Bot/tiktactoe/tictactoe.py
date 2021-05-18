@@ -121,7 +121,7 @@ class game():
             
             board_list[position_count] = position
             if(position == 0):
-                board_list[position_count] = " "
+                board_list[position_count] = "_"
             position_count += 1
         
         board_string = ""
@@ -134,7 +134,9 @@ class game():
         print(board_string)
         
     def play_turn(self):
+        
         turn_string = self.turn_of(False)
+        print("it is " + turn_string + "'s turn. They can play Left(l) Middle(m) Right(r), Top(t) Middle(m) Bottom(b)")
         turn_position = self.index_finder(input())
         if(self.board[turn_position] != 0):
             print("that position has already been played")
