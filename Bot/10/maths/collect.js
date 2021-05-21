@@ -13,7 +13,7 @@ function singleNearby(currentPixel, pixelArray, strength) {
         var bMin = currentPixel.b - pixelArray[i].b
         distance = Math.sqrt(rMin * rMin + gMin * gMin + bMin * bMin)
         if (distance < strength) {
-            out.nearPixels.push([pixelArray[i].name, Math.round(distance)])
+            out.nearPixels.push(pixelArray[i].name)
         }
     }
 
@@ -28,10 +28,12 @@ function collectNearby(pixelArray) {
     var outMap = new Map()
 
     for (var i = 0; i < pixelArray.length; i++) {
-        var temp = singleNearby(pixelArray[i], pixelArray, 64)
+        var temp = singleNearby(pixelArray[i], pixelArray, 81)
         outMap.set(temp.name, temp)
     }
+    //console.log(outMap)
     return outMap
+
 }
 
 module.exports = { collectNearby }
