@@ -27,6 +27,7 @@ function sortPairs(pairsIn) {
                 pairsIn[altSort] = temp1
                 //console.log('swapped')
             }
+            
         }
     }
     pairsOut = pairsIn
