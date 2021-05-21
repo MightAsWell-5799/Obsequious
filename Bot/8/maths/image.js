@@ -30,7 +30,10 @@ function genImage(link, message) {
                             r: RGBA.r,
                             g: RGBA.g,
                             b: RGBA.b,
-                            name: RGBA.r.toString(16).padStart(2, '0') + RGBA.g.toString(16).padStart(2, '0') + RGBA.b.toString(16).padStart(2, '0'),
+                            name:
+                                RGBA.r.toString(16).padStart(2, '0') +
+                                RGBA.g.toString(16).padStart(2, '0') +
+                                RGBA.b.toString(16).padStart(2, '0'),
                         }
                         if (!pixelSet.has(newrgba.name)) {
                             pixelArray.push(newrgba)
