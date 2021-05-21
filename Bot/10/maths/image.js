@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const tinyColor = require('tinycolor2')
 const jimp = require('jimp')
-const {performance} = require('perf_hooks');
+const { performance } = require('perf_hooks')
 
 const imageMath = require('./collect')
 const colourFilter = require('./filter')
@@ -83,12 +83,17 @@ function genImage(link, message) {
                     var t1 = performance.now()
                     var epoch = Math.floor(t1 - t0)
                     var m1 = process.memoryUsage().heapUsed
-                    var variance = Math.floor(((m1-m0)/1024)/1024)
+                    var variance = Math.floor((m1 - m0) / 1024 / 1024)
                     message.channel.send(
-                        'The most popular colours in your image are:\n ' + outString + '\nThis command took me ' + epoch + 'ms and used ' + variance + "mb of memory.",
+                        'The most popular colours in your image are:\n ' +
+                            outString +
+                            '\nThis command took me ' +
+                            epoch +
+                            'ms and used ' +
+                            variance +
+                            'mb of memory.',
                         new Discord.MessageAttachment(`./images/${message.id}.png`),
                     )
-                    
                 })
 
                 //var potato = console.timeEnd('imageGen')

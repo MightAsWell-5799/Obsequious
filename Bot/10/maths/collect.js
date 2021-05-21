@@ -33,7 +33,6 @@ function collectNearby(pixelArray) {
     }
     //console.log(outMap)
     return outMap
-
 }
 
 module.exports = { collectNearby }

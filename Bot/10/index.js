@@ -39,9 +39,9 @@ client.on('message', async (message) => {
                 }
             }
             var parts = await imageGen.genImage(link, message)
-            
+
             //message.channel.send('The most popular colours in your image are:\n ' + parts[0], new Discord.MessageAttachment(`./images/${message.id}.png`))
-            
+
             //heapdump.writeSnapshot("./images/"+ message.id + '.heapsnapshot');
 
             break

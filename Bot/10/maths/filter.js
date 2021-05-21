@@ -12,23 +12,21 @@ function filterColours(colourMap) {
         popularityArray.push([value.totalNear, key])
     })
 
-    
     var j = 1
     while (mostPopular.length < 16) {
         if (j == popularityArray.length) {
             break
         }
-        
-            var temp = popularityArray[popularityArray.length - j]
-            if (!usedSet.has(temp[1])) {
-                usedSet.add(temp[1])
-                colourMap.get(temp[1]).nearPixels.forEach((Element) => {
-                    usedSet.add(Element)
-                })
-                mostPopular.push(temp[1])
-            }
-            j++
-        
+
+        var temp = popularityArray[popularityArray.length - j]
+        if (!usedSet.has(temp[1])) {
+            usedSet.add(temp[1])
+            colourMap.get(temp[1]).nearPixels.forEach((Element) => {
+                usedSet.add(Element)
+            })
+            mostPopular.push(temp[1])
+        }
+        j++
     }
 
     //console.log(usedSet)

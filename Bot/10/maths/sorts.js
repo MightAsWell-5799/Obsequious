@@ -1,6 +1,6 @@
 /**
- * 
- * @param {Array<Array<>>} pairsIn 
+ *
+ * @param {Array<Array<>>} pairsIn
  * @returns {Array<Array<>>}
  */
 function sortPairs(pairsIn) {
@@ -19,10 +19,9 @@ function sortPairs(pairsIn) {
                 pairsIn[altSort] = temp1
                 //console.log('swapped')
             }
-
         }
     }
     return pairsIn
 }
 
-module.exports = {sortPairs}
+module.exports = { sortPairs }
