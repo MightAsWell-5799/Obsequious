@@ -19,18 +19,20 @@ function filterColours(colourMap) {
     var list = sorts.sortPairs(popularityArray)
     var j = 1
     while (mostPopular.length < 16) {
-        var temp = list[list.length - j]
-        if (!usedSet.has(temp[1])) {
-            usedSet.add(temp[1])
-            colourMap.get(temp[1]).nearPixels.forEach((Element) => {
-                usedSet.add(Element[0])
-            })
-            mostPopular.push(temp[1])
-        }
-        j++
-        if(j == mostPopular.length){
+        if (j == list.length) {
             break
         }
+        
+            var temp = list[list.length - j]
+            if (!usedSet.has(temp[1])) {
+                usedSet.add(temp[1])
+                colourMap.get(temp[1]).nearPixels.forEach((Element) => {
+                    usedSet.add(Element[0])
+                })
+                mostPopular.push(temp[1])
+            }
+            j++
+        
     }
 
     //console.log(usedSet)

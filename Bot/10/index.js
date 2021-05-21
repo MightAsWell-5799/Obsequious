@@ -40,9 +40,10 @@ client.on('message', async (message) => {
                     break
                 }
             }
-            console.log(link)
-            await jimp.read(link).then(async (image) => {
+
+            await jimp.read(link).then((image) => {
                 image.resize(128, 128)
+                image.bit
                 var h = image.getHeight()
                 var w = image.getWidth()
                 var totalPixels = h * w
@@ -84,14 +85,14 @@ client.on('message', async (message) => {
                 }
                 var newMap = imageMath.collectNearby(pixelArray)
                 var mostPopularColours = colourFilter.filterColours(newMap)
-                var mostPopularInts = []
+                var mostPopularInts = new Array(16).fill(11111111)
+                console.log(mostPopularColours)
+                var colorCount = 0
                 mostPopularColours.forEach((Element) => {
-                    var colour = tinyColor(Element, {
-                        format: 'hex6',
-                    })
-                    mostPopularInts.push(parseInt(colour.toHex8().toUpperCase(), 16))
+                    var colour = tinyColor(Element)
+                    mostPopularInts[colorCount] = (parseInt(colour.toHex8(), 16))
+                    colorCount++
                 })
-                //256 16 16
                 new jimp(256, 256, async (err, image) => {
                     for (let w = 0; w < 4; w++) {
                         //width in colours
@@ -104,7 +105,7 @@ client.on('message', async (message) => {
                                     var x = w * 64 + j
                                     var y = h * 64 + k
                                     var selectcolour = h * 4 + w
-                                    //console.log(mostPopularInts[selectcolour])
+                                    //console.log(mostPopularInts[selectcolour], x, y)
                                     image.setPixelColor(mostPopularInts[selectcolour], x, y)
                                 }
                             }
@@ -128,6 +129,9 @@ client.on('message', async (message) => {
                 })
             })
 
+            break
+        case 'test':
+            message.channel.send('fgawawg')
             break
     }
 })

@@ -28,7 +28,7 @@ function collectNearby(pixelArray) {
     var outMap = new Map()
 
     for (var i = 0; i < pixelArray.length; i++) {
-        var temp = singleNearby(pixelArray[i], pixelArray, 8)
+        var temp = singleNearby(pixelArray[i], pixelArray, 64)
         outMap.set(temp.name, temp)
     }
     return outMap
