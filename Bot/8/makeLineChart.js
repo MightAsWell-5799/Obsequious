@@ -1,36 +1,13 @@
 const vectorMath = require('./vector')
 const chart = require('quickchart-js')
+const { createWriteStream } = require('fs')
 const fs = require('fs')
-const request = require('request')
+const got = require('got')
 
 async function download(url, dest) {
-    console.log(dest.substring(0, dest.length - 23))
-    fs.mkdir(dest.substring(0, dest.length - 23), () => {})
+    //fs.mkdir(dest.substring(0, dest.length - 23), () => {})
     // Create an empty file where we can save data
-    const file = fs.createWriteStream(dest)
-    // Using Promises so that we can use the ASYNC AWAIT syntax
-    await new Promise((resolve, reject) => {
-        request({
-            // Here you should specify the exact link to the file you are trying to download
-            uri: url,
-            gzip: true,
-        })
-            .pipe(file)
-            .on('finish', async () => {
-                console.log(`The file is finished downloading.`)
-                resolve()
-            })
-            .on('error', (error) => {
-                reject(error)
-            })
-    }).catch((error) => {
-        console.log(
-            `Something happened: ${error} \n ${dest.substring(
-                0,
-                dest.length - 23,
-            )}`,
-        )
-    })
+    await got.stream(url).pipe(createWriteStream(dest))
 }
 
 async function makePairs(messageArray) {
@@ -38,24 +15,13 @@ async function makePairs(messageArray) {
     var iMessageArrayIndex = 0
     var pairs = new Array(Array())
 
-    for (
-        iMessageArrayIndex = 0;
-        iMessageArrayIndex < messageArray.length;
-        iMessageArrayIndex++
-    ) {
-        if (
-            pairs[iPairsPushIndex].length % 2 == 0 &&
-            pairs[iPairsPushIndex].length !== 0
-        ) {
+    for (iMessageArrayIndex = 0; iMessageArrayIndex < messageArray.length; iMessageArrayIndex++) {
+        if (pairs[iPairsPushIndex].length % 2 == 0 && pairs[iPairsPushIndex].length !== 0) {
             pairs.push(Array())
-            pairs[iPairsPushIndex + 1].push(
-                parseInt(messageArray[iMessageArrayIndex]),
-            )
+            pairs[iPairsPushIndex + 1].push(parseInt(messageArray[iMessageArrayIndex]))
             iPairsPushIndex++
         } else {
-            pairs[iPairsPushIndex].push(
-                parseInt(messageArray[iMessageArrayIndex]),
-            )
+            pairs[iPairsPushIndex].push(parseInt(messageArray[iMessageArrayIndex]))
         }
     }
     return pairs
@@ -91,11 +57,7 @@ async function sortPairs(pairsIn) {
     return pairsOut
 }
 module.exports = {
-    makeLineChart: async function ([
-        messageArray = Array(),
-        serverID,
-        messageID,
-    ]) {
+    makeLineChart: async function ([messageArray = Array(), serverID, messageID]) {
         var pointsX = new Array()
         var pointsY = new Array()
 
@@ -133,11 +95,9 @@ module.exports = {
             .setWidth(800)
             .setHeight(400)
             .setBackgroundColor('white')
-        var downDest = `./images/${serverID}/${messageID}.png`
-        try {
-            fs.mkdirSync(`./images/${serverID}`)
-        } catch (e) {}
+        var downDest = `./images/${messageID}.png`
         await download(myChart.getUrl(), downDest)
+
         return downDest
     },
 }

@@ -1,13 +1,14 @@
 const keys = require('./auth.json')
 
 const Discord = require('discord.js')
-const png = require('pnglib-es6').default
+//const png = require('pnglib-es6').default
 const client = new Discord.Client()
-const imageDataURI = require('image-data-uri')
-
+const jimp = require('jimp')
+const tinycolor = require('tinycolor2')
 const vectorMath = require('./vector')
 const makettgline = require('./makettgline')
 const makePolarLine = require('./makePolarLine')
+//icky and useless has dependencies that died as well
 const makeLineChart = require('./makeLineChart')
 
 const fs = require('fs')
@@ -53,7 +54,11 @@ async function createMatrix(drawFile) {
     //console.log(colours)
     return outDrawing
 }
+
+//!this function needs to be remade with jimp
 async function createImage(squareHeight, cArray, msg, dims, artName) {
+    var toSend = new Discord.MessageEmbed()
+
     var squareWidth = squareHeight
 
     var gridArrayWidth
@@ -71,49 +76,52 @@ async function createImage(squareHeight, cArray, msg, dims, artName) {
     var height = gridArrayHeight * squareHeight
     var width = gridArrayWidth * squareWidth
     //var totalSquares = gridArrayHeight * gridArrayWidth
-
+    
     //console.log(cArray.length)
 
-    var ColourMap = new Map()
-    cArray.forEach((Element) => {
-        //console.log(Element)
-        if (ColourMap.has(Element)) {
-        } else {
-            ColourMap.set(Element, 'blank')
-        }
+    var hexArray = Array(gridArrayWidth*gridArrayHeight).fill(11111111)
+    var counter = 0  
+    cArray.forEach((Element) =>{
+        hexArray[counter] = (parseInt(tinycolor(Element).toHex8(), 16))
+        counter++
     })
-
-    var image = new png(width, height, ColourMap.size, 'white')
-    ColourMap.forEach((value, key) => {
-        ColourMap.set(key, image.createColor(key))
-    })
-
-    console.log(ColourMap)
-    for (let y = 0; y < gridArrayHeight; y++) {
-        //selects horizontal square
-        for (let z = 0; z < gridArrayWidth; z++) {
-            //selects vertical square line
-            var point = y * gridArrayWidth + z
-            //console.log("point " + point)
-            //console.log( "is " + cArray[point])
-            var currentColor = ColourMap.get(cArray[point])
-            for (let i = 0; i < squareHeight; i++) {
-                //goes horizontally this distance
-                for (let l = 0; l < squareWidth; l++) {
-                    //travels vertically down one column of pixels in a square
-                    let x = z * squareWidth + l
-                    //let y2 = l%100
-                    image.setPixel(x, i + squareHeight * y, currentColor)
+    console.log(hexArray, cArray)
+    //console.log(ColourMap)
+    new jimp(width, height, (err, image) => {
+        for (let y = 0; y < gridArrayHeight; y++) {
+            //selects horizontal square
+            for (let z = 0; z < gridArrayWidth; z++) {
+                //selects vertical square line
+                var point = y * gridArrayWidth + z
+                //console.log("point " + point)
+                //console.log( "is " + cArray[point])
+                //!
+                var currentColor = hexArray[point]
+                for (let i = 0; i < squareHeight; i++) {
+                    //goes horizontally this distance
+                    for (let l = 0; l < squareWidth; l++) {
+                        //travels vertically down one column of pixels in a square
+                        let x = z * squareWidth + l
+                        //let y2 = l%100
+                        //console.log(currentColor, x, i + squareHeight * y)
+                        image.setPixelColor(x, i + squareHeight * y, currentColor)
+                    }
                 }
             }
+            //console.log(y)
         }
-        //console.log(y)
-    }
-    var imageTitle = msg
-    await imageDataURI.outputFile(image.getDataURL(), `./colours/${imageTitle}`)
-    var toSend = new Discord.MessageEmbed()
-    toSend.setTitle(artName)
-    toSend.attachFiles(`./colours/${msg}.png`)
+
+        image.writeAsync("./colours/"+ msg + ".png").then(()=>{
+            
+            toSend.setTitle(artName)
+            toSend.attachFiles(`./colours/${msg}.png`)
+        });
+    })
+
+    //!use jimp write here
+    
+    //await imageDataURI.outputFile(image.getDataURL(), `./colours/${imageTitle}`)
+    
     return toSend
 }
 //palette preview image
@@ -187,18 +195,19 @@ async function defineHelps() {
         .addField((name = 'Yell'), (value = `<:ObsequiYell:${emoteMap.get('ObsequiYell')}>`), (inline = true))
         .addField((name = 'Sad'), (value = `<:ObsequiSad:${emoteMap.get('ObsequiSad')}>`), (inline = true))
         .addField((name = 'Wicked'), (value = `<:ObsequiWicked:${emoteMap.get('ObsequiWicked')}>`), (inline = true))
-        .addField((name = 'Soulless'), (value = `<:ObsequiSoulless:${emoteMap.get('ObsequiSoulless')}>`), (inline = true))
+        .addField(
+            (name = 'Soulless'),
+            (value = `<:ObsequiSoulless:${emoteMap.get('ObsequiSoulless')}>`),
+            (inline = true),
+        )
 }
 defineHelps()
-
 
 const remiFile = require('./drawings/remi.json')
 const sebFile = require('./drawings/rainbowandsky.json')
 const serinFile = require('./drawings/serin.json')
 
 client.on('message', async (message) => {
-
-
     if (message.author.bot) {
         return
     }
@@ -350,7 +359,7 @@ return;
 
             var toSend = new Discord.MessageEmbed()
             toSend.setTitle(useName)
-
+            console.log(usePFP)
             toSend.setImage(`${usePFP}?size=512`)
             toSend.setColor(0xdcebff)
             message.channel.send(toSend)
@@ -453,7 +462,7 @@ return;
                 .setDescription(
                     `The object took ${vectorMath.calcTimeY([args[1], args[2] | 0, args[3] | -10])} to land.`,
                 )
-                .setImage(makettgline.makeTTGLine([args[1], args[2] | 0, args[3] | -10]))
+                .setImage(await makettgline.makeTTGLine([args[1], args[2] | 0, args[3] | -10]))
             message.channel.send(toSend)
 
             break
@@ -472,12 +481,14 @@ return;
                 serverID,
                 message.id,
             ])
+            
             toSend
                 .setTitle('Polar Projectile')
                 .setColor(0xdcebff)
                 .setDescription(`${vectorMath.calcPolarDistance([args[1], args[2], args[3] | 0, args[4] | -10])}`)
                 .attachFiles('./' + path)
-                .setImage(`attachment://${path}`)
+                //.setImage(`attachment://${path}`)
+                console.log("sent")
             message.channel.send(toSend)
             break
         case 'makegraph':
