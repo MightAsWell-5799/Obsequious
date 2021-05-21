@@ -10,6 +10,7 @@ const makettgline = require('./makettgline')
 const makePolarLine = require('./makePolarLine')
 //icky and useless has dependencies that died as well
 const makeLineChart = require('./makeLineChart')
+const imageGen = require('./maths/image')
 
 const fs = require('fs')
 const colours = [
@@ -76,13 +77,13 @@ async function createImage(squareHeight, cArray, msg, dims, artName) {
     var height = gridArrayHeight * squareHeight
     var width = gridArrayWidth * squareWidth
     //var totalSquares = gridArrayHeight * gridArrayWidth
-    
+
     //console.log(cArray.length)
 
-    var hexArray = Array(gridArrayWidth*gridArrayHeight).fill(11111111)
-    var counter = 0  
-    cArray.forEach((Element) =>{
-        hexArray[counter] = (parseInt(tinycolor(Element).toHex8(), 16))
+    var hexArray = Array(gridArrayWidth * gridArrayHeight).fill(11111111)
+    var counter = 0
+    cArray.forEach((Element) => {
+        hexArray[counter] = parseInt(tinycolor(Element).toHex8(), 16)
         counter++
     })
     console.log(hexArray, cArray)
@@ -111,17 +112,16 @@ async function createImage(squareHeight, cArray, msg, dims, artName) {
             //console.log(y)
         }
 
-        image.writeAsync("./colours/"+ msg + ".png").then(()=>{
-            
+        image.writeAsync('./colours/' + msg + '.png').then(() => {
             toSend.setTitle(artName)
             toSend.attachFiles(`./colours/${msg}.png`)
-        });
+        })
     })
 
     //!use jimp write here
-    
+
     //await imageDataURI.outputFile(image.getDataURL(), `./colours/${imageTitle}`)
-    
+
     return toSend
 }
 //palette preview image
@@ -238,7 +238,23 @@ return;
     //below is the string of the querry or whatever
     var args = message.content.split(' ')
     switch (command) {
-        case 'legoo':
+        case 'imagepalette':
+            if (args[1]) {
+                link = args[1]
+            } else {
+                try {
+                    link = message.attachments.first().url
+                } catch (e) {
+                    message.channel.send('Attach a file or link to an image and try again.')
+                    break
+                }
+            }
+            var parts = await imageGen.genImage(link, message)
+
+            //message.channel.send('The most popular colours in your image are:\n ' + parts[0], new Discord.MessageAttachment(`./images/${message.id}.png`))
+
+            //heapdump.writeSnapshot("./images/"+ message.id + '.heapsnapshot');
+
             break
         case 'flex':
             message.channel.send('This bot probably has a better physics grade than you do.')
@@ -481,24 +497,20 @@ return;
                 serverID,
                 message.id,
             ])
-            
+
             toSend
                 .setTitle('Polar Projectile')
                 .setColor(0xdcebff)
                 .setDescription(`${vectorMath.calcPolarDistance([args[1], args[2], args[3] | 0, args[4] | -10])}`)
-                .attachFiles('./' + path)
-                //.setImage(`attachment://${path}`)
-                console.log("sent")
+                .setImage(path)
+            //.setImage(`attachment://${path}`)
+            console.log('sent')
             message.channel.send(toSend)
             break
         case 'makegraph':
             var path = await makeLineChart.makeLineChart([song1, serverID, message.id])
             var toSend = new Discord.MessageEmbed()
-            toSend
-                .setTitle('Your Chart')
-                .setColor(0xdcebff)
-                .attachFiles('./' + path)
-                .setDescription(`Points: `)
+            toSend.setTitle('Your Chart').setColor(0xdcebff).setImage(path).setDescription(`Points: `)
             message.channel.send(toSend)
             break
         case 'nsfw':

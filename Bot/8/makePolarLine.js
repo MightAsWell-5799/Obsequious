@@ -10,7 +10,7 @@ async function download(url, dest) {
     // Create an empty file where we can save data
     var stream = createWriteStream(dest)
     await got.stream(url).pipe(stream)
-    stream.close()
+    return dest
 }
 
 module.exports = {
@@ -59,10 +59,7 @@ module.exports = {
             .setHeight(400)
             .setBackgroundColor('white')
 
-        var downDest = `./images/${messageID}.png`
-        console.log('potato')
-        await download(myChart.getUrl(), downDest)
-        console.log('downloaded')
-        return downDest
+        
+        return myChart.getShortUrl()
     },
 }

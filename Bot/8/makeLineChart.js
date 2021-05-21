@@ -1,13 +1,15 @@
 const vectorMath = require('./vector')
 const chart = require('quickchart-js')
-const { createWriteStream } = require('fs')
+const {createWriteStream} = require('fs')
 const fs = require('fs')
 const got = require('got')
+
 
 async function download(url, dest) {
     //fs.mkdir(dest.substring(0, dest.length - 23), () => {})
     // Create an empty file where we can save data
-    await got.stream(url).pipe(createWriteStream(dest))
+    //download method works just discordjs sends the image too fast and im too lazy to fix
+    got.stream(url).pipe(createWriteStream(dest))
 }
 
 async function makePairs(messageArray) {
@@ -15,13 +17,24 @@ async function makePairs(messageArray) {
     var iMessageArrayIndex = 0
     var pairs = new Array(Array())
 
-    for (iMessageArrayIndex = 0; iMessageArrayIndex < messageArray.length; iMessageArrayIndex++) {
-        if (pairs[iPairsPushIndex].length % 2 == 0 && pairs[iPairsPushIndex].length !== 0) {
+    for (
+        iMessageArrayIndex = 0;
+        iMessageArrayIndex < messageArray.length;
+        iMessageArrayIndex++
+    ) {
+        if (
+            pairs[iPairsPushIndex].length % 2 == 0 &&
+            pairs[iPairsPushIndex].length !== 0
+        ) {
             pairs.push(Array())
-            pairs[iPairsPushIndex + 1].push(parseInt(messageArray[iMessageArrayIndex]))
+            pairs[iPairsPushIndex + 1].push(
+                parseInt(messageArray[iMessageArrayIndex]),
+            )
             iPairsPushIndex++
         } else {
-            pairs[iPairsPushIndex].push(parseInt(messageArray[iMessageArrayIndex]))
+            pairs[iPairsPushIndex].push(
+                parseInt(messageArray[iMessageArrayIndex]),
+            )
         }
     }
     return pairs
@@ -57,7 +70,11 @@ async function sortPairs(pairsIn) {
     return pairsOut
 }
 module.exports = {
-    makeLineChart: async function ([messageArray = Array(), serverID, messageID]) {
+    makeLineChart: async function ([
+        messageArray = Array(),
+        serverID,
+        messageID,
+    ]) {
         var pointsX = new Array()
         var pointsY = new Array()
 
@@ -95,9 +112,8 @@ module.exports = {
             .setWidth(800)
             .setHeight(400)
             .setBackgroundColor('white')
-        var downDest = `./images/${messageID}.png`
-        await download(myChart.getUrl(), downDest)
-
-        return downDest
+        
+        //await download(, downDest)
+        return myChart.getShortUrl()
     },
 }
