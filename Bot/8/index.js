@@ -57,8 +57,40 @@ async function createMatrix(drawFile) {
 }
 
 //!this function needs to be remade with jimp
+async function imageFile(width, height, gridArrayWidth, gridArrayHeight, squareHeight, squareWidth, hexArray, msg, ) {
+    var tempImage = new jimp(width, height)
+
+    
+        for (let w = 0; w < gridArrayWidth; w++) {
+            //width in colours
+            for (let h = 0; h < gridArrayHeight; h++) {
+                //height in colours
+                for (let j = 0; j < squareHeight; j++) {
+                    //j is horizontal in pixel
+                    for (let k = 0; k < squareHeight; k++) {
+                        //k is vertical in pixel
+                        var x = w * squareHeight + j
+                        var y = h * squareHeight + k
+                        var selectcolour = h * gridArrayHeight + w
+                        //console.log(selectcolour)
+                        //console.log(mostPopularInts[selectcolour], x, y)
+                        tempImage.setPixelColor(hexArray[selectcolour], x, y)
+                    }
+                }
+            }
+        }
+
+        //image.writeAsync(`./colours/${msg}.png`)
+        //console.log(image.getPixelColor(1,1))
+    
+    console.log(tempImage.getPixelColor(1,1))
+        await tempImage.writeAsync(`./colours/${msg}.png`)
+
+    console.log('exit')
+    
+}
 async function createImage(squareHeight, cArray, msg, dims, artName) {
-    var toSend = new Discord.MessageEmbed()
+    var toSend = new Discord.MessageEmbed().setTitle('Your Colours').setColor(0xdcebff).setDescription('Test')
 
     var squareWidth = squareHeight
 
@@ -88,40 +120,13 @@ async function createImage(squareHeight, cArray, msg, dims, artName) {
     })
     console.log(hexArray, cArray)
     //console.log(ColourMap)
-    new jimp(width, height, (err, image) => {
-        for (let y = 0; y < gridArrayHeight; y++) {
-            //selects horizontal square
-            for (let z = 0; z < gridArrayWidth; z++) {
-                //selects vertical square line
-                var point = y * gridArrayWidth + z
-                //console.log("point " + point)
-                //console.log( "is " + cArray[point])
-                //!
-                var currentColor = hexArray[point]
-                for (let i = 0; i < squareHeight; i++) {
-                    //goes horizontally this distance
-                    for (let l = 0; l < squareWidth; l++) {
-                        //travels vertically down one column of pixels in a square
-                        let x = z * squareWidth + l
-                        //let y2 = l%100
-                        //console.log(currentColor, x, i + squareHeight * y)
-                        image.setPixelColor(x, i + squareHeight * y, currentColor)
-                    }
-                }
-            }
-            //console.log(y)
-        }
-
-        image.writeAsync('./colours/' + msg + '.png').then(() => {
-            toSend.setTitle(artName)
-            toSend.attachFiles(`./colours/${msg}.png`)
-        })
-    })
 
     //!use jimp write here
-
+    await imageFile(width, height, gridArrayWidth, gridArrayHeight, squareHeight, squareWidth, hexArray, msg)
     //await imageDataURI.outputFile(image.getDataURL(), `./colours/${imageTitle}`)
-
+    toSend.attachFiles(`./colours/${msg}.png`)
+    console.log('escaped')
+    
     return toSend
 }
 //palette preview image
@@ -207,6 +212,7 @@ const remiFile = require('./drawings/remi.json')
 const sebFile = require('./drawings/rainbowandsky.json')
 const serinFile = require('./drawings/serin.json')
 
+
 client.on('message', async (message) => {
     if (message.author.bot) {
         return
@@ -279,7 +285,8 @@ return;
             var cList = args
             console.log(dims)
             console.log(cList)
-            message.channel.send(await createImage(25, cList, message.id, dims))
+            var toSendEmbed = await createImage(25, cList, message.id, dims, 'colours')
+            message.channel.send(toSendEmbed)
 
             break
         case 'preview':
@@ -290,59 +297,7 @@ return;
             //toSend.setImage("https://cdn.discordapp.com/attachments/760965640210219008/796384002041708544/asdf.png")
             message.channel.send(toSend)
             break
-        case 'palette':
-            if (!(message.guild.id == '760866540659671102')) {
-                break
-            }
-            var selected = Math.floor(Math.random() * colours.length)
-            if (parseInt(args[1]) > 0 && parseInt(args[1]) < colours.length + 1) {
-                selected = parseInt(args[1]) - 1
-            }
-            //put this into a function with the colour command one
-            var list = new Array()
-            message.member.roles.cache.keyArray().forEach((Element) => {
-                var rawPos = parseInt(message.member.roles.cache.get(Element).rawPosition)
-                var role = message.member.roles.cache.get(Element)
-                list.push(rawPos, role)
-            })
-            var temp1 = await sortPairs(makePairs(list))
-            var temp2 = temp1[temp1.length - 2][1]
-            temp2.setColor(colours[selected])
-            //console.log("set colour to " + colours[selected])
-            break
-        case 'color':
-        case 'colour':
-        case 'c':
-            if (!(message.guild.id == '760866540659671102')) {
-                break
-            }
-            var list = new Array()
-            message.member.roles.cache.keyArray().forEach((Element) => {
-                var rawPos = parseInt(message.member.roles.cache.get(Element).rawPosition)
-                var role = message.member.roles.cache.get(Element)
-                list.push(rawPos, role)
-            })
-            var temp1 = await sortPairs(makePairs(list))
-            var temp2 = temp1[temp1.length - 2][1]
-            switch (args[1]) {
-                case 'hex':
-                    if (!(args[2].length > 6)) {
-                        try {
-                            temp2.setColor(parseInt(args[2], 16))
-                        } catch (e) {}
-                    }
-                    break
-                case 'decimal':
-                    if (!(args[2].length > 8)) {
-                        try {
-                            temp2.setColor(parseInt(args[2]))
-                        } catch (e) {}
-                    }
-                    break
-                default:
-                    break
-            }
-            break
+
         case 'vote':
             await message.delete()
 
