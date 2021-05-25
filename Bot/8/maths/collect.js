@@ -23,12 +23,14 @@ function singleNearby(currentPixel, pixelArray, strength) {
 
 /**
  * @param pixelArray array of colours, object shape is {r:int, g:int, b:int, name:string}
+ * Strong : 72
+ * Weak : 27
  */
-function collectNearby(pixelArray) {
+function collectNearby(pixelArray,strength) {
     var outMap = new Map()
 
     for (var i = 0; i < pixelArray.length; i++) {
-        var temp = singleNearby(pixelArray[i], pixelArray, 72)
+        var temp = singleNearby(pixelArray[i], pixelArray, strength)
         outMap.set(temp.name, temp)
     }
     //console.log(outMap)

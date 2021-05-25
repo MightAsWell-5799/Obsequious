@@ -12,7 +12,13 @@ const makePolarLine = require('./makePolarLine')
 const makeLineChart = require('./makeLineChart')
 const imageGen = require('./maths/image')
 
-const fs = require('fs')
+const remiFile = require('./drawings/remi.json')
+const sebFile = require('./drawings/rainbowandsky.json')
+const serinFile = require('./drawings/serin.json')
+
+
+
+//const fs = require('fs')
 const colours = [
     '08415c',
     'cc2936',
@@ -71,7 +77,7 @@ async function imageFile(width, height, gridArrayWidth, gridArrayHeight, squareH
                         //k is vertical in pixel
                         var x = w * squareHeight + j
                         var y = h * squareHeight + k
-                        var selectcolour = h * gridArrayHeight + w
+                        var selectcolour = h * gridArrayWidth + w
                         //console.log(selectcolour)
                         //console.log(mostPopularInts[selectcolour], x, y)
                         tempImage.setPixelColor(hexArray[selectcolour], x, y)
@@ -208,10 +214,6 @@ async function defineHelps() {
 }
 defineHelps()
 
-const remiFile = require('./drawings/remi.json')
-const sebFile = require('./drawings/rainbowandsky.json')
-const serinFile = require('./drawings/serin.json')
-
 
 client.on('message', async (message) => {
     if (message.author.bot) {
@@ -255,7 +257,7 @@ return;
                     break
                 }
             }
-            var parts = await imageGen.genImage(link, message)
+            var parts = await imageGen.translateImage(link, message)
 
             //message.channel.send('The most popular colours in your image are:\n ' + parts[0], new Discord.MessageAttachment(`./images/${message.id}.png`))
 

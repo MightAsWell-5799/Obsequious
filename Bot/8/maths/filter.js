@@ -3,7 +3,7 @@
  * @param {Map} colourMap
  * @return {Array<String>}
  */
-function filterColours(colourMap) {
+function filterColours(colourMap , count) {
     var popularityArray = new Array()
     var usedSet = new Set()
     var mostPopular = new Array()
@@ -13,7 +13,7 @@ function filterColours(colourMap) {
     })
 
     var j = 1
-    while (mostPopular.length < 16) {
+    while (mostPopular.length < count) {
         if (j == popularityArray.length) {
             break
         }
