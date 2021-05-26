@@ -1,0 +1,21 @@
+{
+    "name": "10",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@gpujs/benchmark": "^3.1.0",
+        "discord.js": "^12.5.1",
+        "gl": "^4.9.0",
+        "gpu.js": "^2.11.3",
+        "mongoose": "^5.12.1",
+        "node-gyp": "^8.0.0",
+        "tinycolor2": "^1.4.2"
+    }
+}
