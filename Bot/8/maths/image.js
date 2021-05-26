@@ -42,8 +42,6 @@ function translateImage(link, message) {
                     })
                 }
             }
-
-            
         })
         .then(() => {
             var strongCollected = imageMath.collectNearby(pixelArray, 150)
@@ -51,36 +49,30 @@ function translateImage(link, message) {
             var weakCollected = imageMath.collectNearby(pixelArray, 60)
 
             var strongColours = colourFilter.filterColours(strongCollected, largePXWidth)
-            var weakColours = colourFilter.filterColours(weakCollected, largePXWidth*4)
+            var weakColours = colourFilter.filterColours(weakCollected, largePXWidth * 4)
 
             var strongMath = 0
             var weakMath = 0
-            strongCollected.forEach((value)=>{
+            strongCollected.forEach((value) => {
                 strongMath += value.totalNear
             })
-            weakCollected.forEach((value)=>{
+            weakCollected.forEach((value) => {
                 weakMath += value.totalNear
             })
             console.log(strongColours, weakColours)
-            var numbers = [strongMath.toLocaleString("en-US", {}), weakMath.toLocaleString("en-US", {}), pixelArray.length]
+            var numbers = [
+                strongMath.toLocaleString('en-US', {}),
+                weakMath.toLocaleString('en-US', {}),
+                pixelArray.length.toLocaleString('en-US', {}),
+            ]
 
-            genImage(
-                message,
-                strongColours,
-                strongColours.length,
-                weakColours,
-                weakColours.length,
-                m0,
-                t0,
-                numbers
-            )
+            genImage(message, strongColours, strongColours.length, weakColours, weakColours.length, m0, t0, numbers)
         })
 
     console.log('quitting mem func')
 }
 
 function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t0, numbers) {
-    
     var currentVertShift = 0
     var currentArrayShift = 0
     const pixelSizes = 60
@@ -130,29 +122,28 @@ function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t
         }
         currentVertShift = currentVertShift + pixelSizes
         //write weak colours
-        for (let h = 0; h < 2 ; h++) {
-        for (let w = 0; w < largePXWidth * 2; w++) {
-            console.log(currentArrayShift)
-            if (currentArrayShift >= fullColours.length) {
-                break
-            }
-            //write strong colours
-            for (let j = 0; j < pixelSizes / 2; j++) {
-                //j is horizontal in pixel
-                for (let k = 0; k < pixelSizes / 2; k++) {
-                    //k is vertical in pixel
-                    var x = (w * pixelSizes) / 2 + j
-                    var y = k + currentVertShift
-                    var selectcolour = currentArrayShift
-                    //!new colour array lol
-                    image.setPixelColor(nameColours[selectcolour], x, y)
+        for (let h = 0; h < 2; h++) {
+            for (let w = 0; w < largePXWidth * 2; w++) {
+                console.log(currentArrayShift)
+                if (currentArrayShift >= fullColours.length) {
+                    break
                 }
+                //write strong colours
+                for (let j = 0; j < pixelSizes / 2; j++) {
+                    //j is horizontal in pixel
+                    for (let k = 0; k < pixelSizes / 2; k++) {
+                        //k is vertical in pixel
+                        var x = (w * pixelSizes) / 2 + j
+                        var y = k + currentVertShift
+                        var selectcolour = currentArrayShift
+                        //!new colour array lol
+                        image.setPixelColor(nameColours[selectcolour], x, y)
+                    }
+                }
+                currentArrayShift++
             }
-            currentArrayShift++
+            currentVertShift = currentVertShift + pixelSizes / 2
         }
-        currentVertShift = currentVertShift + pixelSizes/2
-    }
-        
 
         //write basic colours
 
@@ -190,9 +181,14 @@ function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t
                     'ms and used ' +
                     variance +
                     'mb of memory.\n' +
-                    "I considered:\n - " + numbers[0] + " strong colour comparisons.\n - "+ numbers[1] + " weak colour comparisons.\n - "+ numbers[2] + " total different colours."
-                    
-                    ,
+                    'I considered:\n - ' +
+                    numbers[0] +
+                    ' strong colour comparisons.\n - ' +
+                    numbers[1] +
+                    ' weak colour comparisons.\n - ' +
+                    numbers[2] +
+                    ' total different colours.',
+
                 new Discord.MessageAttachment(`./images/${message.id}.png`),
             )
         })
