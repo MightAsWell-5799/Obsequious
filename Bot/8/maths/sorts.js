@@ -6,8 +6,8 @@
 function sortPairs(pairsIn) {
     var iPairSort = 0
     var loopSort = 0
-    for (loopSort = 0; loopSort < pairsIn.length; loopSort++) {
-        for (iPairSort = 0; iPairSort < pairsIn.length; iPairSort++) {
+    for (loopSort = 0; loopSort < pairsIn.length-1; loopSort++) {
+        for (iPairSort = 0; iPairSort < pairsIn.length -1; iPairSort++) {
             var altSort = iPairSort + 1
             //console.log({ iPairSort, first, second, pairsIn })
             var temp1

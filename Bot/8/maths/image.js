@@ -3,9 +3,10 @@ const client = new Discord.Client()
 const tinyColor = require('tinycolor2')
 const jimp = require('jimp')
 const { performance } = require('perf_hooks')
+const fs = require('fs')
 
 const largePXWidth = 10
-
+const gpuAccelerated = require('./gpuAccelerated')
 const imageMath = require('./collect')
 const colourFilter = require('./filter')
 function translateImage(link, message) {
@@ -22,6 +23,7 @@ function translateImage(link, message) {
             var w = image.getWidth()
 
             var pixelSet = new Set()
+            console.time("transform")
             for (let i = 0; i < h; i++) {
                 for (let j = 0; j < w; j++) {
                     image.getPixelColor(j, i, (err, value) => {
@@ -42,13 +44,21 @@ function translateImage(link, message) {
                     })
                 }
             }
+            
+            fs.writeFileSync(message.id, JSON.stringify(pixelArray))
+            console.timeEnd('transform')
         })
         .then(() => {
-            var strongCollected = imageMath.collectNearby(pixelArray, 150)
+            console.time("collect")
+            var strongCollected = gpuAccelerated.fullSuite(pixelArray, 150)
+            console.timeEnd("collect")
             //console.log(strongCollected)
-            var weakCollected = imageMath.collectNearby(pixelArray, 60)
-
+            console.time("collect2")
+            var weakCollected = imageMath.collectNearby(pixelArray, 150)
+            console.timeEnd("collect2")
+            console.time("filter")
             var strongColours = colourFilter.filterColours(strongCollected, largePXWidth)
+            console.timeEnd("filter")
             var weakColours = colourFilter.filterColours(weakCollected, largePXWidth * 4)
 
             var strongMath = 0
@@ -59,7 +69,6 @@ function translateImage(link, message) {
             weakCollected.forEach((value) => {
                 weakMath += value.totalNear
             })
-            console.log(strongColours, weakColours)
             var numbers = [
                 strongMath.toLocaleString('en-US', {}),
                 weakMath.toLocaleString('en-US', {}),
@@ -76,9 +85,7 @@ function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t
     var currentVertShift = 0
     var currentArrayShift = 0
     const pixelSizes = 60
-    console.log(StrongColoursArray, WeakColoursArray)
     var fullColours = StrongColoursArray.concat(WeakColoursArray)
-    console.log(fullColours, fullColours.length, SCL + WCL)
     var totalHeight = Math.ceil(pixelSizes * 2.5)
     var totalWidth = Math.ceil(pixelSizes * largePXWidth)
     var outString = ''
@@ -102,7 +109,7 @@ function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t
         image.background(0xffffffff)
         //number of strong colours to collect and display
         for (let w = 0; w < largePXWidth; w++) {
-            console.log(currentArrayShift)
+            
             if (currentArrayShift >= fullColours.length) {
                 break
             }
@@ -124,7 +131,7 @@ function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t
         //write weak colours
         for (let h = 0; h < 2; h++) {
             for (let w = 0; w < largePXWidth * 2; w++) {
-                console.log(currentArrayShift)
+                
                 if (currentArrayShift >= fullColours.length) {
                     break
                 }
@@ -148,7 +155,7 @@ function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t
         //write basic colours
 
         for (let w = 0; w < largePXWidth * 2; w++) {
-            console.log(currentArrayShift)
+            
             if (currentArrayShift >= fullColours.length) {
                 break
             }
@@ -164,7 +171,7 @@ function genImage(message, StrongColoursArray, SCL, WeakColoursArray, WCL, m0, t
                     image.setPixelColor(nameColours[selectcolour], x, y)
                 }
             }
-            console.log(currentArrayShift)
+            
             currentArrayShift++
         }
 

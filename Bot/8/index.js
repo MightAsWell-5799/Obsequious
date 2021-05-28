@@ -52,13 +52,12 @@ async function createMatrix(drawFile) {
         colourMap.set(Element, drawFile.colours[i])
         i++
     })
-    //console.log(colourMap)
+ 
     var outDrawing = new Array()
     drawFile.drawing.forEach((Element) => {
         outDrawing.push(colourMap.get(Element))
     })
-    //console.log(outDrawing)
-    //console.log(colours)
+
     return outDrawing
 }
 
@@ -78,8 +77,7 @@ async function imageFile(width, height, gridArrayWidth, gridArrayHeight, squareH
                         var x = w * squareHeight + j
                         var y = h * squareHeight + k
                         var selectcolour = h * gridArrayWidth + w
-                        //console.log(selectcolour)
-                        //console.log(mostPopularInts[selectcolour], x, y)
+                        
                         tempImage.setPixelColor(hexArray[selectcolour], x, y)
                     }
                 }
@@ -87,12 +85,11 @@ async function imageFile(width, height, gridArrayWidth, gridArrayHeight, squareH
         }
 
         //image.writeAsync(`./colours/${msg}.png`)
-        //console.log(image.getPixelColor(1,1))
+
     
-    console.log(tempImage.getPixelColor(1,1))
+    
         await tempImage.writeAsync(`./colours/${msg}.png`)
 
-    console.log('exit')
     
 }
 async function createImage(squareHeight, cArray, msg, dims, artName) {
@@ -106,17 +103,14 @@ async function createImage(squareHeight, cArray, msg, dims, artName) {
     if (dims === undefined) {
         gridArrayWidth = Math.ceil(Math.sqrt(cArray.length))
         gridArrayHeight = Math.ceil(Math.sqrt(cArray.length))
-        console.log('made it here')
     } else {
         gridArrayWidth = dims[0]
         gridArrayHeight = dims[1]
     }
-    console.log({ gridArrayHeight, gridArrayWidth })
     var height = gridArrayHeight * squareHeight
     var width = gridArrayWidth * squareWidth
     //var totalSquares = gridArrayHeight * gridArrayWidth
 
-    //console.log(cArray.length)
 
     var hexArray = Array(gridArrayWidth * gridArrayHeight).fill(11111111)
     var counter = 0
@@ -124,8 +118,7 @@ async function createImage(squareHeight, cArray, msg, dims, artName) {
         hexArray[counter] = parseInt(tinycolor(Element).toHex8(), 16)
         counter++
     })
-    console.log(hexArray, cArray)
-    //console.log(ColourMap)
+  
 
     //!use jimp write here
     await imageFile(width, height, gridArrayWidth, gridArrayHeight, squareHeight, squareWidth, hexArray, msg)
@@ -154,7 +147,8 @@ function makePairs(messageArray) {
         }
     }
 
-    //console.log(pairs)
+    
+
     return pairs
 }
 async function sortPairs(pairsIn) {
@@ -170,7 +164,7 @@ async function sortPairs(pairsIn) {
             } catch (e) {
                 break
             }
-            //console.log({ iPairSort, first, second, pairsIn })
+
             var temp1
             var temp2
 
@@ -179,7 +173,7 @@ async function sortPairs(pairsIn) {
                 temp2 = pairsIn[altSort]
                 pairsIn[iPairSort] = temp2
                 pairsIn[altSort] = temp1
-                //console.log('swapped')
+                
             }
         }
     }
@@ -257,7 +251,7 @@ return;
                     break
                 }
             }
-            var parts = await imageGen.translateImage(link, message)
+            imageGen.translateImage(link, message)
 
             //message.channel.send('The most popular colours in your image are:\n ' + parts[0], new Discord.MessageAttachment(`./images/${message.id}.png`))
 
@@ -285,8 +279,7 @@ return;
             }
 
             var cList = args
-            console.log(dims)
-            console.log(cList)
+            
             var toSendEmbed = await createImage(25, cList, message.id, dims, 'colours')
             message.channel.send(toSendEmbed)
 
@@ -310,7 +303,7 @@ return;
 
             break
         case 'pfp':
-            //console.log('pfp')
+            
             var testPFP
             var usePFP
             var useName
@@ -332,7 +325,7 @@ return;
 
             var toSend = new Discord.MessageEmbed()
             toSend.setTitle(useName)
-            console.log(usePFP)
+            
             toSend.setImage(`${usePFP}?size=512`)
             toSend.setColor(0xdcebff)
             message.channel.send(toSend)
@@ -424,7 +417,7 @@ return;
                 useMem = message.author.id
             }
             await message.guild.member(useMem).lastMessage.react(lego.get(`Obsequi${cappt}`))
-            //console.log(await message.guild.users.fetch(useMem))
+            
             //.react(`<:Obsequi${args[1]}:${lego.get(`Obsequi${cappt}`)}>`)
             break
         case 'ttg':

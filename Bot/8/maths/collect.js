@@ -31,8 +31,10 @@ function collectNearby(pixelArray,strength) {
 
     for (var i = 0; i < pixelArray.length; i++) {
         var temp = singleNearby(pixelArray[i], pixelArray, strength)
+
         outMap.set(temp.name, temp)
     }
+    
     //console.log(outMap)
     return outMap
 }

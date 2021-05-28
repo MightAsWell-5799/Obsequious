@@ -3,14 +3,19 @@
  * @param {Map} colourMap
  * @return {Array<String>}
  */
+const sort = require('./sorts')
 function filterColours(colourMap , count) {
     var popularityArray = new Array()
     var usedSet = new Set()
     var mostPopular = new Array()
-
+    //var iterator = Array.from(colourMap.keys())
+    //console.log(iterator[0])
+    //console.log(colourMap.get(iterator[0]))
+    
     colourMap.forEach((value, key) => {
         popularityArray.push([value.totalNear, key])
     })
+    popularityArray = sort.sortPairs(popularityArray)
 
     var j = 1
     while (mostPopular.length < count) {
