@@ -15,7 +15,7 @@ function filterColours(colourMap , count) {
     colourMap.forEach((value, key) => {
         popularityArray.push([value.totalNear, key])
     })
-    popularityArray = sort.sortPairs(popularityArray)
+    
 
     var j = 1
     while (mostPopular.length < count) {

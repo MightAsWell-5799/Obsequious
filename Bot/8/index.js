@@ -309,7 +309,7 @@ return;
             var useName
             if (message.mentions.members.size) {
                 testPFP = message.mentions.members.first().user.avatar
-                usePFP = message.mentions.members.first().user.avatarURL()
+                usePFP = message.mentions.members.first().user.avatarURL({format:"jpg"})
                 useName = message.mentions.members.first().displayName.toString()
             } else {
                 testPFP = message.author.avatar
