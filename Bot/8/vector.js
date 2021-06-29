@@ -98,7 +98,6 @@ module.exports = {
     },
 }
 
-var age = (Math.ceil(Math.random()*6) + 13)
 function calcTimeY([
     initialVelocityY = 0,
     change = 0,

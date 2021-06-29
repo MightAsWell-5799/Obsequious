@@ -363,10 +363,6 @@ return;
                 message.channel.send(emoteHelp)
                 break
             }
-            var thisarraything = (await client.guilds.fetch('757052713489006652')).emojis.cache
-            var potat = thisarraything.keyArray()
-            var lego = new Map()
-            potat.forEach((Element) => lego.set(thisarraything.get(Element).name, thisarraything.get(Element).id))
             if (args[1] == 'all') {
                 var potat2 = new Array()
                 lego.forEach((value, key, map) => {
@@ -379,8 +375,7 @@ return;
                 message.channel.send(finalstring)
                 break
             }
-
-            ;`<:ObsequiJoy:${lego.get('ObsequiJoy')}>`
+            `<:ObsequiJoy:${lego.get('ObsequiJoy')}>`
 
             try {
                 var cappt = args[1].split('')[0].toUpperCase() + args[1].substring(1)

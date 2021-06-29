@@ -18,7 +18,6 @@ function translateImage(link, message) {
     jimp.read(link)
         .then((image) => {
             image.resize(128, 128)
-            image.bit
             var h = image.getHeight()
             var w = image.getWidth()
 
