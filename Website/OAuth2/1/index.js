@@ -44,9 +44,9 @@ app.get("/about", (req, res) => {
     res.render('main/about')
 
 })
-
+app.
 
 //listen on a port, this will be replaced by the https server in the future to allow for encrypted connections to the server.
-app.listen(80, () => {
-    console.log('listening on port 80')
+app.listen(81, () => {
+    console.log('listening on port 81')
 })

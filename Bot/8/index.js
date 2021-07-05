@@ -151,6 +151,11 @@ function makePairs(messageArray) {
 
     return pairs
 }
+/**
+ * 
+ * @param {*} pairsIn 
+ * @returns 
+ */
 async function sortPairs(pairsIn) {
     var pairsOut
     var iPairSort = 0
@@ -180,7 +185,7 @@ async function sortPairs(pairsIn) {
     pairsOut = pairsIn
     return pairsOut
 }
-async function defineHelps() {
+(async function defineHelps() {
     var thisarraything = (await client.guilds.fetch('757052713489006652')).emojis.cache
     var spaceEmoteArray = thisarraything.keyArray()
     var emoteMap = new Map()
@@ -205,8 +210,7 @@ async function defineHelps() {
             (value = `<:ObsequiSoulless:${emoteMap.get('ObsequiSoulless')}>`),
             (inline = true),
         )
-}
-defineHelps()
+})()
 
 
 client.on('message', async (message) => {
