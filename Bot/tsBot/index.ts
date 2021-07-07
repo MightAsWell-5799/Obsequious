@@ -98,7 +98,7 @@ return;
 	switch (command) {
 		case "quit":
 			if (message.author.id === "247845601641758720") {
-				process.exit();
+				
 			}
 			break;
 		case "flex":
